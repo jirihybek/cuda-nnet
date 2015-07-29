@@ -17,7 +17,7 @@ build: ${OBJS}
 	nvcc ${OBJS} -o ${BUILD}
 
 run: build
-	${BUILD} -i 100 -s 1 -j dump.js -t dump.tree -c 5 3 17 5
+	${BUILD} -i 100 -s 1 -j dump.js -t dump.tree 5 3 17 5
 
 run_clean: clean run
 

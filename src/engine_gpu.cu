@@ -192,6 +192,24 @@ void Engine_GPU::copyToHost(){
 	cudaMemcpy(this->h_input_weight, this->d_input_weight, sizeof(float) * this->h_input_offset_last, cudaMemcpyDeviceToHost);
 };
 
+__global__ void Engine_GPU_flop(float *d_node_value, float *d_node_output, int *d_node_count, int *d_node_offset) {
+	
+	if(blockIdx.x > 0){
+
+		if(threadIdx.x < d_node_count[blockIdx.x]){
+			
+			//Get indexes
+			int node_index = d_node_offset[blockIdx.x] + threadIdx.x;
+			
+			//Flop values (double-buffer)
+			d_node_value[node_index] = d_node_output[node_index];
+			d_node_output[node_index] = 0;
+
+		}
+	}
+
+}
+
 __global__ void Engine_GPU_kernel(int *d_input_layer, int *d_input_node, float *d_input_weight, float *d_node_threshold, float *d_node_sum, float *d_node_value, float *d_node_output, int *d_node_count, int *d_node_offset, int *d_input_count, int *d_input_offset) {
 
 	if(blockIdx.x > 0){
@@ -204,8 +222,9 @@ __global__ void Engine_GPU_kernel(int *d_input_layer, int *d_input_node, float *
 			int input_index_end = d_input_offset[node_index + 1];
 			
 			//Flop values (double-buffer)
-			d_node_value[node_index] = d_node_output[node_index];
-			d_node_output[node_index] = 0;
+			//d_node_value[node_index] = d_node_output[node_index];
+			//d_node_output[node_index] = 0;
+			//NOTE: moved to separated kernel because of data race
 
 			//Make sum of current values
 			float sum = d_node_sum[node_index];
@@ -251,6 +270,11 @@ void Engine_GPU::feed(std::vector<float> inputs){
     dim3 ThreadDim  = dim3(threads, 1, 1);
 
 	Engine_GPU_kernel<<<BlockDim,ThreadDim>>>(this->d_input_layer, this->d_input_node, this->d_input_weight, this->d_node_threshold, this->d_node_sum, this->d_node_value, this->d_node_output, this->d_node_count, this->d_node_offset, this->d_input_count, this->d_input_offset);
+
+	cudaDeviceSynchronize();
+
+	Engine_GPU_flop<<<BlockDim,ThreadDim>>>(this->d_node_value, this->d_node_output, this->d_node_count, this->d_node_offset);
+
 	//printf("ErrP: %s\n", cudaGetErrorString(cudaPeekAtLastError()) );
 
 }

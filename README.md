@@ -87,6 +87,14 @@ Each **neuron** has **threshold**, **sum** (action potential) and **inputs**.
 
 Each **input** has **weight** and target node described by **layer_id** and **node_id**.
 
+## Architect
+Architect class has static methods for creating network configurations.
+
+### RecurrentFeedforward network
+This network model consists of input layer, multiple hidden layers and one output layer.
+
+Connections in hidden layers are recurrent. Each neuron has chance 1/3 to connect to a random node in different layer and 2/3 chance to connect to a random node in the same layer.
+
 ## Engines
 Engines are created for already defined networks. They provides **feed** and **sync** methods.
 
