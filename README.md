@@ -1,6 +1,9 @@
 # cuda-nnet
 Spiking neural network implementation using CPU and CUDA engine
 
+Demonstration screencast:  
+[https://www.youtube.com/watch?v=Oe1ldwEEwsI](https://www.youtube.com/watch?v=Oe1ldwEEwsI)
+
 ## Requirements
  - g++ compiler
  - nVidia CUDA Toolkit (nvcc compiler, cuda headers)
@@ -117,6 +120,6 @@ GPU engine copies network structure into memory once and then only updates input
 
 ## Possible improvements
  - Apply DRY principle (Don't Repeat Yourself) to engines
- - Architect method for creating different ANN models
- - Extension of engines to support classical feed-forward computation with activation function and backprogation learning
+ - Architect methods for creating different ANN models
+ - Extension of engines to support classical feed-forward computation with activation functions and backpropagation learning
  - OpenCL engine
