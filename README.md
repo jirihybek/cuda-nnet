@@ -90,5 +90,11 @@ GPU engine computes network in parallel:
 GPU engine copies network structure into memory once and then only updates inputs.
 
 ## References
- - [Flattening algorithm for jagged arrays](http://stackoverflow.com/questions/31662370/2d-jagged-array-to-1d-array-in-c/31662573) (thanks to Robert Crovella from nVidia)
+ - [Flattening algorithm for jagged arrays](http://stackoverflow.com/questions/31662370/2d-jagged-array-to-1d-array-in-c/31662573) (thanks to Robert [Crovella](http://stackoverflow.com/users/1695960/robert-crovella) from nVidia)
  - [nVidia CUDA tutorial](http://www.nvidia.com/docs/IO/116711/sc11-cuda-c-basics.pdf)
+
+## Possible improvements
+ - Apply DRY principle (Don't Repeat Yourself) to engines
+ - Architect method for creating different ANN models
+ - Extension of engines to support classical feed-forward computation with activation function and backprogation learning
+ - OpenCL engine
