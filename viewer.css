@@ -1,0 +1,85 @@
+/*
+ * Spiking neural network
+ *
+ * Viewer styles
+ */
+
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+body {
+	background: #222222;
+}
+
+#toolbar {
+	position: fixed;
+	left: 0px;
+	right: 0px;
+	top: 0px;
+	height: 32px;
+	padding: 9px;
+	background: #333333;
+	display: flex;
+}
+
+#toolbar input {
+	flex-grow: 1;
+}
+
+#toolbar #buttons {
+	padding-left: 20px;
+}
+
+#toolbar button {
+	padding: 4px;
+	border: 0px none;
+	background: #555555;
+	cursor: pointer;
+	transition: background 0.3s;
+}
+
+#toolbar button svg {
+	fill: #ffffff;
+	width: 24px;
+	height: 24px;
+	transition: fill 0.3s;
+}
+
+#toolbar button#pause {
+	background: #CDDC39;
+	display: none;
+}
+
+#toolbar button#pause svg {
+	fill: #333333;
+}
+
+#toolbar button:hover,
+#toolbar button#pause:hover {
+	background: #eeeeee;
+}
+
+#toolbar button:hover svg,
+#toolbar button#pause:hover svg {
+	fill: #333333;
+}
+
+#toolbar.playing button#pause {
+	display: inline;
+}
+
+#toolbar.playing button#play {
+	display: none;
+}
+
+#wrap {
+	padding-top: 50px;
+	width: 100%;
+}
+
+#canvas {
+	display: block;
+	margin: auto;
+}

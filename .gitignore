@@ -1,0 +1,7 @@
+/build/main
+/obj/*.o
+/sandbox
+dump.js
+dump.tree
+rbuild.conf
+rbuild.ignore
